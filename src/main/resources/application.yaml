@@ -1,0 +1,16 @@
+server:
+  port: ${MP.ENTITY.MANAGER.PORT}
+
+spring:
+  datasource:
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+    url: ${MP.ENTITY.MANAGER.DATABASE.URL}
+    username: ${MP.ENTITY.MANAGER.DATABASE.USERNAME}
+    password: ${MP.ENTITY.MANAGER.DATABASE.PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: ${MP.ENTITY.MANAGER.DATABASE.PASSWORD}
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
