@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mp-entity-manager.fullname" . }}
+  labels:
+    {{- include "mp-entity-manager.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "mp-entity-manager.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "mp-entity-manager.selectorLabels" . | nindent 8 }}
+      annotations:
+        forceRecreate: {{ add .Values.global.recreationFlag .Values.recreationFlag | quote}}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: {{ required "A valid .Values.global.mpEntityManagerPortName entry required!" .Values.global.mpEntityManagerPortName }}
+              containerPort: {{ required "A valid .Values.global.mpEntityManagerPort entry required!" .Values.global.mpEntityManagerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.livenessProbe.path }}
+              port: {{ required "A valid .Values.global.mpEntityManagerPort entry required!" .Values.global.mpEntityManagerPort }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.livenessProbe.path }}
+              port: {{ required "A valid .Values.global.mpEntityManagerPort entry required!" .Values.global.mpEntityManagerPort }}
+
+          env:
+            - name: MP_ENTITY_MANAGER_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "mp-entity-manager.fullname" . }}
+                  key: MP_ENTITY_MANAGER_DATABASE_PASSWORD
+
+          envFrom:
+            - configMapRef:
+                name: {{ template "mp-entity-manager.fullname" . }}
+
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

@@ -11,6 +11,6 @@ spring:
     password: ${MP.ENTITY.MANAGER.DATABASE.PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: ${MP.ENTITY.MANAGER.DATABASE.PASSWORD}
+      ddl-auto: ${MP.ENTITY.MANAGER.JPA.HIBERNATE.DDL.AUTO}
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mp-entity-manager.fullname" . }}
+  labels:
+    {{ include "mp-entity-manager.labels" . | nindent 4 }}
+data:
+  MP_ENTITY_MANAGER_PORT: {{ required "A valid .Values.global.mpEntityManagerPort entry required!" .Values.global.mpEntityManagerPort | quote }}
+  MP_ENTITY_MANAGER_DATABASE_URL: {{ required "A valid .Values.databaseURL entry required!" .Values.databaseURL }}
+  MP_ENTITY_MANAGER_DATABASE_USERNAME: {{ required "A valid .Values.databaseUsername entry required!" .Values.databaseUsername }}
+  MP_ENTITY_MANAGER_JPA_HIBERNATE_DDL_AUTO: {{ required "A valid .Values.jpaHibernateDDLAuto entry required!" .Values.jpaHibernateDDLAuto }}

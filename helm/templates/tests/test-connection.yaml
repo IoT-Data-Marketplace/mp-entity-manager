@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "mp-entity-manager.fullname" . }}-test-connection"
+  labels:
+    {{- include "mp-entity-manager.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "mp-entity-manager.fullname" . }}:{{ .Values.global.mpEntityManagerPort }}']
+  restartPolicy: Never

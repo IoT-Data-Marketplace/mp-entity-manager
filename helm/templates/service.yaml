@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mp-entity-manager.fullname" . }}
+  labels:
+    {{- include "mp-entity-manager.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ required "A valid .Values.global.mpEntityManagerPort entry required!" .Values.global.mpEntityManagerPort }}
+      targetPort: {{ required "A valid .Values.global.mpEntityManagerPort entry required!" .Values.global.mpEntityManagerPort }}
+      protocol: TCP
+      name: {{ required "A valid .Values.global.mpEntityManagerPortName entry required!" .Values.global.mpEntityManagerPortName }}
+  selector:
+  {{- include "mp-entity-manager.selectorLabels" . | nindent 4 }}
