@@ -5,6 +5,7 @@ metadata:
   labels:
     {{ include "mp-entity-manager.labels" . | nindent 4 }}
 data:
+  SPRING_PROFILES_ACTIVE: {{ required "A valid .Values.springProfilesActive entry required!" .Values.springProfilesActive }}
   MP_ENTITY_MANAGER_PORT: {{ required "A valid .Values.global.mpEntityManagerPort entry required!" .Values.global.mpEntityManagerPort | quote }}
   MP_ENTITY_MANAGER_DATABASE_URL: {{ required "A valid .Values.databaseURL entry required!" .Values.databaseURL }}
   MP_ENTITY_MANAGER_DATABASE_USERNAME: {{ required "A valid .Values.databaseUsername entry required!" .Values.databaseUsername }}

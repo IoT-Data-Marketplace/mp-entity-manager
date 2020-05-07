@@ -23,6 +23,8 @@ global:
   mpEntityManagerPort: 8090
   mpEntityManagerPortName: ent-mng-8090
 
+springProfilesActive: PROD
+
 databaseURL: ""
 databaseUsername: ""
 databasePassword: ""

@@ -15,20 +15,16 @@ import javax.persistence.*;
 public class Sensor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true)
     private String sensorContractAddress;
 
     @Column(nullable = false)
     private String dataStreamEntityContractAddress;
 
     @Column(nullable = false)
-    private String latitude;
+    private Double latitude;
 
     @Column(nullable = false)
-    private String longitude;
+    private Double longitude;
 
     @Enumerated(EnumType.STRING)
     private SensorType sensorType;

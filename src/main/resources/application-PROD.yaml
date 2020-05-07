@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: PROD
+  datasource:
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+    url: ${MP.ENTITY.MANAGER.DATABASE.URL}
+    username: ${MP.ENTITY.MANAGER.DATABASE.USERNAME}
+    password: ${MP.ENTITY.MANAGER.DATABASE.PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: ${MP.ENTITY.MANAGER.JPA.HIBERNATE.DDL.AUTO}
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
