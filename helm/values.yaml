@@ -21,7 +21,7 @@ global:
   namespaceName: ""
   recreationFlag: 1
   mpEntityManagerPort: 8090
-  mpEntityManagerPortName: ent-mng-8090
+  mpEntityManagerPortName: http-8090
 
 springProfilesActive: PROD
 
