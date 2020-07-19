@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AuthRepository extends CrudRepository<DSJWTAuth, String> {
+public interface DSJWTAuthRepository extends CrudRepository<DSJWTAuth, String> {
     Optional<DSJWTAuth> findByJwt(String s);
 }
