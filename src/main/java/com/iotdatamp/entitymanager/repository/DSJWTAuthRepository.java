@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface DSJWTAuthRepository extends CrudRepository<DSJWTAuth, String> {
     Optional<DSJWTAuth> findByJwt(String s);
+    Optional<DSJWTAuth> findByContractAddress(String s);
 }

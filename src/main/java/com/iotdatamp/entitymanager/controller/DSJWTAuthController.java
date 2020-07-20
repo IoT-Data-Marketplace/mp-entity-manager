@@ -18,9 +18,14 @@ public class DSJWTAuthController {
         return DSJWTAuthService.saveDSJWT(authDTO);
     }
 
-    @GetMapping("/jwt")
+    @GetMapping("/jwt/exists")
     public ResponseEntity<Boolean> jwtExists(@RequestParam String jwt) {
         return DSJWTAuthService.jwtExists(jwt);
+    }
+
+    @GetMapping("/jwt")
+    public ResponseEntity<String> getJWTForEntity(@RequestParam String entityContractAddress) {
+        return DSJWTAuthService.getJWTForEntity(entityContractAddress);
     }
 
 }
