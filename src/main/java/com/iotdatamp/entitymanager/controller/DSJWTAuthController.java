@@ -28,4 +28,9 @@ public class DSJWTAuthController {
         return DSJWTAuthService.getJWTForEntity(entityContractAddress);
     }
 
+    @GetMapping("/valid")
+    public ResponseEntity<Boolean> isAddressJWTKeyPairValid(@RequestParam String entityContractAddress, @RequestParam String jwt) {
+        return DSJWTAuthService.isAddressJWTKeyPairValid(entityContractAddress, jwt);
+    }
+
 }

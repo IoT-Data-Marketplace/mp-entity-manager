@@ -17,24 +17,29 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DSJWTAuthService {
 
-    private final DSJWTAuthRepository DSJWTAuthRepository;
+    private final DSJWTAuthRepository dSJWTAuthRepository;
 
     @SneakyThrows
     public ResponseEntity<?> saveDSJWT(DSJWTAuth DSJWTAuth) {
-        DSJWTAuthRepository.save(DSJWTAuth);
+        dSJWTAuthRepository.save(DSJWTAuth);
         return ResponseEntity.ok().build();
     }
 
     @SneakyThrows
     public ResponseEntity<Boolean> jwtExists(String jwt) {
-        Optional<DSJWTAuth> dsOptional = DSJWTAuthRepository.findByJwt(jwt);
+        Optional<DSJWTAuth> dsOptional = dSJWTAuthRepository.findByJwt(jwt);
         if (dsOptional.isPresent())
             return ResponseEntity.ok(Boolean.TRUE);
         return ResponseEntity.ok(Boolean.FALSE);
     }
 
     public ResponseEntity<String> getJWTForEntity(String entityContractAddress) {
-        Optional<DSJWTAuth> dsOptional = DSJWTAuthRepository.findByContractAddress(entityContractAddress);
+        Optional<DSJWTAuth> dsOptional = dSJWTAuthRepository.findByContractAddress(entityContractAddress);
         return dsOptional.map(dsjwtAuth -> ResponseEntity.ok(dsjwtAuth.getJwt())).orElseGet(() -> ResponseEntity.status(HttpStatus.FORBIDDEN).build());
+    }
+
+    public ResponseEntity<Boolean> isAddressJWTKeyPairValid(String entityContractAddress, String jwt) {
+        Optional<DSJWTAuth> dsjwtAuthOptional = dSJWTAuthRepository.findByContractAddressAndJwt(entityContractAddress, jwt);
+        return dsjwtAuthOptional.map(dsjwtAuth -> ResponseEntity.ok(Boolean.TRUE)).orElseGet(() -> ResponseEntity.ok(Boolean.FALSE));
     }
 }
