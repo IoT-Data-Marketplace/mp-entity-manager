@@ -1,36 +1,36 @@
 package com.iotdatamp.entitymanager.controller;
 
-import com.iotdatamp.entitymanager.entity.DSJWTAuth;
-import com.iotdatamp.entitymanager.service.DSJWTAuthService;
+import com.iotdatamp.entitymanager.entity.DSEntityJWTAuth;
+import com.iotdatamp.entitymanager.service.DSEntityJWTAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth/dse")
 @RequiredArgsConstructor
-public class DSJWTAuthController {
+public class DSEntityJWTAuthController {
 
-    private final DSJWTAuthService DSJWTAuthService;
+    private final DSEntityJWTAuthService DSEntityJWTAuthService;
 
     @PostMapping
-    public ResponseEntity<?> saveJWT(@RequestBody DSJWTAuth authDTO) {
-        return DSJWTAuthService.saveDSJWT(authDTO);
+    public ResponseEntity<?> saveJWT(@RequestBody DSEntityJWTAuth authDTO) {
+        return DSEntityJWTAuthService.saveDSJWT(authDTO);
     }
 
     @GetMapping("/jwt/exists")
     public ResponseEntity<Boolean> jwtExists(@RequestParam String jwt) {
-        return DSJWTAuthService.jwtExists(jwt);
+        return DSEntityJWTAuthService.jwtExists(jwt);
     }
 
     @GetMapping("/jwt")
     public ResponseEntity<String> getJWTForEntity(@RequestParam String entityContractAddress) {
-        return DSJWTAuthService.getJWTForEntity(entityContractAddress);
+        return DSEntityJWTAuthService.getJWTForEntity(entityContractAddress);
     }
 
     @GetMapping("/valid")
     public ResponseEntity<Boolean> isAddressJWTKeyPairValid(@RequestParam String entityContractAddress, @RequestParam String jwt) {
-        return DSJWTAuthService.isAddressJWTKeyPairValid(entityContractAddress, jwt);
+        return DSEntityJWTAuthService.isAddressJWTKeyPairValid(entityContractAddress, jwt);
     }
 
 }
